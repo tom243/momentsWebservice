@@ -1,7 +1,7 @@
 var express = require('express');
 var url = require('url');
 var app = express();
-//var saveAlbum = require('./save');
+
 var manager = require('./albumsManager');
 
 
@@ -19,12 +19,24 @@ app.get('/',function (req,res){
 
 
 app.get('/getAllAlbums',function (req,res){
-	console.log("Im in WS out");
 	app.set('json space',3);
 	albumsManager.getAllAlbumsList(function (albumsList){
-		console.log("Im in WS");
 		albumsManager.setAlbums(albumsList);
+		console.log(albumsList);
 		res.json(albumsList);
+	});
+});
+
+app.get('/createAlbum',function (req,res){
+	app.set('json space',3);
+	var urlPart= url.parse(req.url,true);
+	var query = urlPart.query;
+	console.log(query.album_name);
+	query.pic = "http://cdn.searchenginejournal.com/wp-content/uploads/2013/08/photo-album-icon.gif";
+	albumsManager.createAlbum(query.album_name, query.persons, 
+		query.pic,query.creationAddress, query.momentEvent, function (album){
+
+		res.json(album);
 	});
 });
 

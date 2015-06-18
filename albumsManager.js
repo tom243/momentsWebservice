@@ -1,5 +1,5 @@
 var albumsCollection = require("./getAlbums");
-
+var saveAlbum = require('./save');
 
 /* Constructor for the albumsManager */
 function AlbumsManager () {
@@ -20,6 +20,17 @@ AlbumsManager.prototype.getAllAlbumsList = function (callback){
 		console.log("Albums is up to date - no need to access mongo DB")
 		callback(this.albums);
 	}
+}
+
+AlbumsManager.prototype.createAlbum = function(albumName, persons, pic,creationAddress, momentEvent,callback){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	var date = dd+'/'+mm+'/'+yyyy;
+	saveAlbum.insertAlbumToDB(albumName, date, persons, pic,creationAddress, momentEvent, function (album){
+		callback(album);
+	});
 }
 
 AlbumsManager.prototype.setAlbums = function(albumsList){

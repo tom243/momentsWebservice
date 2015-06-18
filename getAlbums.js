@@ -4,7 +4,7 @@ exports.getAllAlbums = function(callback){
 
 	mongoose.connect('mongodb://moment:12345@ds045242.mongolab.com:45242/moments');
 	var schemaAlbum = require('./schemaAlbum').schema_name;
-	var album = mongoose.model('schemaAlbum',schemaAlbum);
+ 	mongoose.model('schemaAlbum',schemaAlbum);
 
 	mongoose.connection.once('open',function(){
 		var albums = this.model('schemaAlbum');
