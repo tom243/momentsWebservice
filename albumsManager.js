@@ -23,7 +23,7 @@ AlbumsManager.prototype.getAllAlbumsList = function (callback){
 }
 
 AlbumsManager.prototype.createAlbum = function(albumName, persons, pic,creationAddress, momentEvent,callback){
-	var date  = getCurrentDate():
+	var date  = getCurrentDate();
 	this.upToDate = false; // the array we save is not up to date 
 	saveAlbum.insertAlbumToDB(albumName, date, persons, pic,creationAddress, momentEvent, function (album){
 		callback(album);
@@ -34,7 +34,7 @@ AlbumsManager.prototype.setAlbums = function(albumsList){
 	this.albums = albumsList;
 }
 
-function getCurrentDate(){
+var getCurrentDate =  function(){
 	var today = new Date();
 	var dd = today.getDate();
 	var mm = today.getMonth()+1; 
