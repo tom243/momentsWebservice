@@ -7,7 +7,7 @@ exports.insertAlbumToDB = function(albumName, date, persons, pic,creationAddress
 	var album = mongoose.model('schemaAlbum',schemaAlbum);
 
 	mongoose.connection.once('open',function(){
-		var singleAlbum = new album({
+		var singleAlbum = new album({ // null instance of album
 			album_name: null,
 			date: null,
 			persons: null,
@@ -16,19 +16,20 @@ exports.insertAlbumToDB = function(albumName, date, persons, pic,creationAddress
 			moment_event : null
 		});
 
-		singleAlbum["album_name"] = albumName;
+		/* insert the values to the album object*/
+		singleAlbum["album_name"] = albumName; 
 		singleAlbum["date"] = date;
 		singleAlbum["persons"] = persons;
 		singleAlbum["pic"] = pic;
 		singleAlbum["creation_address"] = creationAddress;
 		singleAlbum["moment_event"] = momentEvent;
 
+		/*save the album in db*/
 		singleAlbum.save(function(err, album){
 			console.log("saved: " + album);
 			mongoose.disconnect();
 			callback(album);
 		});
-
 	});
 
 }

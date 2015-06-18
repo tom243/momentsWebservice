@@ -1,9 +1,7 @@
 var express = require('express');
 var url = require('url');
 var app = express();
-
 var manager = require('./albumsManager');
-
 
 var albumsManager = manager.getAlbumsManager(); // contains instance of BookStorage
 
@@ -14,25 +12,27 @@ app.use(function(req, res, next) {
 });
 
 app.get('/',function (req,res){
-	res.send("Welcome to my albumsManager");
+	res.send("Welcome to sheared moments");
 });
 
 
 app.get('/getAllAlbums',function (req,res){
+	console.log("In getAllAlbums route\n")
 	app.set('json space',3);
 	albumsManager.getAllAlbumsList(function (albumsList){
-		albumsManager.setAlbums(albumsList);
+		albumsManager.setAlbums(albumsList); // Set the album list to array cache
 		console.log(albumsList);
 		res.json(albumsList);
 	});
 });
 
 app.get('/createAlbum',function (req,res){
+	console.log("In createAlbum route\n")
 	app.set('json space',3);
 	var urlPart= url.parse(req.url,true);
 	var query = urlPart.query;
-	console.log(query.album_name);
-	query.pic = "http://cdn.searchenginejournal.com/wp-content/uploads/2013/08/photo-album-icon.gif";
+	console.log("verify album name is correct, the name is :" + query.album_name + "\n"); 
+	query.pic = "http://cdn.searchenginejournal.com/wp-content/uploads/2013/08/photo-album-icon.gif"; // default pic later will change
 	albumsManager.createAlbum(query.album_name, query.persons, 
 		query.pic,query.creationAddress, query.momentEvent, function (album){
 		res.json(album);
