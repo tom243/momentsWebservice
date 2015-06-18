@@ -35,10 +35,11 @@ app.get('/createAlbum',function (req,res){
 	query.pic = "http://cdn.searchenginejournal.com/wp-content/uploads/2013/08/photo-album-icon.gif";
 	albumsManager.createAlbum(query.album_name, query.persons, 
 		query.pic,query.creationAddress, query.momentEvent, function (album){
-
 		res.json(album);
 	});
 });
+
+app.get('/createAlbum',function (req,res){
 
 var port =process.env.PORT || 3000;
 app.use('/',express.static('./public')).listen(port);

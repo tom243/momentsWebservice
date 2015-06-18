@@ -23,11 +23,8 @@ AlbumsManager.prototype.getAllAlbumsList = function (callback){
 }
 
 AlbumsManager.prototype.createAlbum = function(albumName, persons, pic,creationAddress, momentEvent,callback){
-	var today = new Date();
-	var dd = today.getDate();
-	var mm = today.getMonth()+1; //January is 0!
-	var yyyy = today.getFullYear();
-	var date = dd+'/'+mm+'/'+yyyy;
+	var date  = getCurrentDate():
+	this.upToDate = false; // the array we save is not up to date 
 	saveAlbum.insertAlbumToDB(albumName, date, persons, pic,creationAddress, momentEvent, function (album){
 		callback(album);
 	});
@@ -36,6 +33,16 @@ AlbumsManager.prototype.createAlbum = function(albumName, persons, pic,creationA
 AlbumsManager.prototype.setAlbums = function(albumsList){
 	this.albums = albumsList;
 }
+
+function getCurrentDate(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; 
+	var yyyy = today.getFullYear();
+	today = dd+'/'+mm+'/'+yyyy;
+	return today;
+}
+
 
 exports.getAlbumsManager = function(){
 	var albumsManager = new AlbumsManager();
