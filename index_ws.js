@@ -39,8 +39,6 @@ app.get('/createAlbum',function (req,res){
 	});
 });
 
-app.get('/createAlbum',function (req,res){
-
 var port =process.env.PORT || 3000;
 app.use('/',express.static('./public')).listen(port);
 console.log("listening on port " + port +"\n");
