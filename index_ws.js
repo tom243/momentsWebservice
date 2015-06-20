@@ -34,10 +34,14 @@ app.get('/createAlbum',function (req,res){
 	console.log("verify album name is correct, the name is :" + query.album_name + "\n"); 
 	query.pic = "http://cdn.searchenginejournal.com/wp-content/uploads/2013/08/photo-album-icon.gif"; // default pic later will change
 	albumsManager.createAlbum(query.album_name, query.persons, 
-		query.pic,query.creationAddress, query.momentEvent, function (album){
+	query.pic,query.creation_address, query.momentEvent, function (album){
 		res.json(album);
 	});
 });
+
+app.get('/viewAlbum',function (req,res){
+	res.json(albumsManager.getActiveAlbum());
+}
 
 var port =process.env.PORT || 3000;
 app.use('/',express.static('./public')).listen(port);
