@@ -41,7 +41,7 @@ app.get('/createAlbum',function (req,res){
 
 app.get('/viewAlbum',function (req,res){
 	res.json(albumsManager.getActiveAlbum());
-}
+});
 
 var port =process.env.PORT || 3000;
 app.use('/',express.static('./public')).listen(port);
