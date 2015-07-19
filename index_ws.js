@@ -17,7 +17,7 @@ cloudinary.config({
 	api_secret: 'Rvl3srG9ODTOLyRgD8H9nRg7sk0' 
 });
 
-//check if object is empty
+//  check if object is empty
 function isEmptyObject(obj) {
 	for (var key in obj) {
 		if (Object.prototype.hasOwnProperty.call(obj, key)) {
