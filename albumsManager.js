@@ -1,6 +1,6 @@
 var albumsCollection = require("./dao");
 
-/* Constructor for the albumsManager */
+/*  Constructor for the albumsManager */
 function AlbumsManager() {
 	this.albums = [];
 	console.log("Created instance of albums manager\n");
