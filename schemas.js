@@ -8,7 +8,7 @@ var album_schema = new schema({
 		index : 1,
 		unique : true
 	},
-	creator_name:{
+	creator_name : {
 		type : String,
 		required : true,
 		index : 1,
@@ -26,11 +26,10 @@ var album_schema = new schema({
 		moment_latitude : Number,
 		moment_longitude : Number
 	}],
-	mobile_event:Boolean
+	mobile_event : Boolean
 }, {
 	collection : 'Albums'
 });
-
 
 exports.album_schema = album_schema;
 
@@ -45,4 +44,4 @@ var contact_schema = new schema({
 	collection : 'Users'
 });
 
-exports.contact_schema = contact_schema; 
+exports.contact_schema = contact_schema;

@@ -1,13 +1,11 @@
 var mongoose = require('mongoose');
 
-
-
 exports.getAllAlbums = function(callback) {
 
 	mongoose.connect('mongodb://moment:12345@ds045242.mongolab.com:45242/moments');
 	var schemaAlbum = require('./schemas').album_schema;
 	mongoose.model('schemaAlbum', schemaAlbum);
-	
+
 	mongoose.connection.once('open', function() {
 		var albums = this.model('schemaAlbum');
 		var query = albums.find();
@@ -25,10 +23,12 @@ exports.getAllAlbumsPerUser = function(activeUser, callback) {
 	mongoose.connect('mongodb://moment:12345@ds045242.mongolab.com:45242/moments');
 	var schemaAlbum = require('./schemas').album_schema;
 	mongoose.model('schemaAlbum', schemaAlbum);
-	
+
 	mongoose.connection.once('open', function() {
 		var albums = this.model('schemaAlbum');
-		var query = albums.find( { persons : activeUser } );
+		var query = albums.find({
+			persons : activeUser
+		});
 		query.exec(function(err, albumsCollection) {
 			console.log(albumsCollection);
 			console.log("IM in callback that returns the albums collections\n");
@@ -55,7 +55,7 @@ exports.getAllcontacts = function(callback) {
 	});
 }
 
-exports.insertAlbumToDB = function(albumName, creatorName, date, persons, pic, creationAddress, momentEvent,mobileEvent, callback) {
+exports.insertAlbumToDB = function(albumName, creatorName, date, persons, pic, creationAddress, momentEvent, mobileEvent, callback) {
 
 	mongoose.connect('mongodb://moment:12345@ds045242.mongolab.com:45242/moments');
 	var schemaAlbum = require('./schemas').album_schema;
@@ -66,7 +66,7 @@ exports.insertAlbumToDB = function(albumName, creatorName, date, persons, pic, c
 
 		var singleAlbum = new album({// null instance of album
 			album_name : null,
-			creator_name: null,
+			creator_name : null,
 			date : null,
 			persons : [],
 			pic : null,
@@ -84,9 +84,10 @@ exports.insertAlbumToDB = function(albumName, creatorName, date, persons, pic, c
 		singleAlbum["mobile_event"] = mobileEvent;
 		singleAlbum["creation_address"] = creationAddress;
 
-
-		album.findOne({album_name:singleAlbum["album_name"]}, function(err, result) {
-			if (err) { 	
+		album.findOne({
+			album_name : singleAlbum["album_name"]
+		}, function(err, result) {
+			if (err) {
 				console.log("error findOne from DB");
 				mongoose.disconnect();
 				callback(false);
@@ -96,7 +97,7 @@ exports.insertAlbumToDB = function(albumName, creatorName, date, persons, pic, c
 				mongoose.disconnect();
 				callback(false);
 			} else {
-				console.log("didnt found one"); 
+				console.log("didnt found one");
 				/*save the album in db*/
 				singleAlbum.save(function(err, album) {
 					console.log("album saved to DB: " + album);
@@ -108,8 +109,7 @@ exports.insertAlbumToDB = function(albumName, creatorName, date, persons, pic, c
 	});
 }
 
-exports.insertMomentToAlbum = function(input,type,albumName,creationTime,momentOwner,latitude,longitude,callback) {
-
+exports.insertMomentToAlbum = function(input, type, albumName, creationTime, momentOwner, latitude, longitude, callback) {
 
 	mongoose.connect('mongodb://moment:12345@ds045242.mongolab.com:45242/moments');
 	var schemaAlbum = require('./schemas').album_schema;
@@ -117,34 +117,36 @@ exports.insertMomentToAlbum = function(input,type,albumName,creationTime,momentO
 
 	mongoose.connection.once('open', function() {
 		var album = this.model('schemaAlbum');
-		
-		var query = {'album_name': albumName};
+
+		var query = {
+			'album_name' : albumName
+		};
 		var doc = {
-			$push: { 
-				'moment_event':{
-					moment_input: input, 
-					moment_type: type,
-					creation_time: creationTime,
-					owner: momentOwner,
-					moment_latitude:latitude,
-					moment_longitude:longitude
+			$push : {
+				'moment_event' : {
+					moment_input : input,
+					moment_type : type,
+					creation_time : creationTime,
+					owner : momentOwner,
+					moment_latitude : latitude,
+					moment_longitude : longitude
 				}
 			}
 		};
-		var options = {upsert: true};
-		album.findOneAndUpdate(query, doc, options, function(err,results){
-			if(err) {
+		var options = {
+			upsert : true
+		};
+		album.findOneAndUpdate(query, doc, options, function(err, results) {
+			if (err) {
 				mongoose.disconnect();
 				console.log("didnt fount album in that name!");
 				callback(false);
-			} else{
-				console.log("results " , results);
+			} else {
+				console.log("results ", results);
 				mongoose.disconnect();
 				callback(results);
 			}
 		});
-
-
 
 	});
 }

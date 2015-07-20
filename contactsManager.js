@@ -26,4 +26,17 @@ ContactsManager.prototype.setAllContacts = function(contactList) {// Set new con
 exports.getContactsManager = function() {
 	var contactsManager = new ContactsManager();
 	return contactsManager;
-}; 
+};
+
+ContactsManager.prototype.checkRegisteredUser = function(user) {
+	var isExist = false;
+	console.log("checkRegisteredUser : " + user);
+	this.contacts.forEach(function(contact) {
+		console.log("contact: " + contact.name);
+		if (contact.name == user) {
+			console.log("found! " + contact);
+			isExist = true;
+		}
+	})
+	return isExist;
+};
