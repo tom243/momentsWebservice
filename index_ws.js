@@ -118,7 +118,7 @@ app.post('/checkRegisteredUser', function(req, res) {
 	var isExists = contactsManager.checkRegisteredUser(user);
 	console.log("isExists " + isExists);
 	res.json({
-		exists : isExists
+		"exists" : isExists
 	});
 
 })
@@ -158,11 +158,11 @@ app.post('/sendToBackEnd', function(req, res) {
 					if (file != false) {
 						albumsManager.addMomentToCache(url, "video", dataForm.album_name, dataForm.creation_time, dataForm.owner, dataForm.latitude, dataForm.longitude);
 						res.json({
-							momentType : "video"
+							"momentType" : "video"
 						});
 					} else {
 						res.json({
-							momentError : "error in upload moment to db"
+							"momentError" : "error in upload moment to db"
 						});
 					}
 				});
@@ -184,11 +184,11 @@ app.post('/sendToBackEnd', function(req, res) {
 					if (file != false) {
 						albumsManager.addMomentToCache(url, "image", dataForm.album_name, dataForm.creation_time, dataForm.owner, dataForm.latitude, dataForm.longitude);
 						res.json({
-							momentType : "image"
+							"momentType" : "image"
 						});
 					} else {
 						res.json({
-							momentError : "error in upload moment to db"
+							"momentError" : "error in upload moment to db"
 						});
 					}
 				});
@@ -201,11 +201,11 @@ app.post('/sendToBackEnd', function(req, res) {
 				if (file != false) {
 					albumsManager.addMomentToCache(dataForm.userTextInput, "text", dataForm.album_name, dataForm.creation_time, dataForm.owner, dataForm.latitude, dataForm.longitude);
 					res.json({
-						momentType : "text"
+						"momentType" : "text"
 					});
 				} else {
 					res.json({
-						momentError : "error in upload moment to db"
+						"momentError" : "error in upload moment to db"
 					});
 				}
 			});
